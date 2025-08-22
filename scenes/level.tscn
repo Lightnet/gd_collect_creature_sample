@@ -1,0 +1,277 @@
+[gd_scene load_steps=23 format=3 uid="uid://2oyfbo3fn5gn"]
+
+[ext_resource type="PackedScene" uid="uid://b4qanoqgtxx1p" path="res://prefabs/dummy_player/dummy_player.tscn" id="1_2q6dc"]
+[ext_resource type="PackedScene" uid="uid://d2y4gi1i5oq60" path="res://prefabs/dummy_creature/dummy_creature.tscn" id="2_w7c3h"]
+[ext_resource type="Script" uid="uid://be7ym7bg3yy2i" path="res://scenes/f_1_shortcutkeys.gd" id="3_8iemx"]
+[ext_resource type="Texture2D" uid="uid://qu5vihmnobu2" path="res://assets/input_prompts/keyboard_and_mouse/keyboard_w.svg" id="3_klq6b"]
+[ext_resource type="Texture2D" uid="uid://f4w3ntck3ch" path="res://assets/input_prompts/keyboard_and_mouse/keyboard_s.svg" id="4_b121j"]
+[ext_resource type="Texture2D" uid="uid://do5hvy0jg0bma" path="res://assets/input_prompts/keyboard_and_mouse/keyboard_d.svg" id="5_8c41q"]
+[ext_resource type="Texture2D" uid="uid://by2rchpwyqkfw" path="res://assets/input_prompts/keyboard_and_mouse/keyboard_a.svg" id="6_olg7q"]
+[ext_resource type="Texture2D" uid="uid://bvhgljyyqglm4" path="res://assets/input_prompts/keyboard_and_mouse/keyboard_shift_icon.svg" id="7_t1rx8"]
+[ext_resource type="Texture2D" uid="uid://c8mpyhtfr2u3y" path="res://assets/input_prompts/keyboard_and_mouse/keyboard_c.svg" id="8_olg7q"]
+[ext_resource type="Texture2D" uid="uid://dolhfuoaewvxo" path="res://assets/input_prompts/keyboard_and_mouse/keyboard_space_icon.svg" id="9_64w2a"]
+[ext_resource type="Texture2D" uid="uid://cj3keam8hgft3" path="res://assets/input_prompts/keyboard_and_mouse/mouse_left.svg" id="9_t1rx8"]
+[ext_resource type="Texture2D" uid="uid://cxrdnsj6qko0l" path="res://assets/input_prompts/keyboard_and_mouse/keyboard_escape.svg" id="10_8iemx"]
+[ext_resource type="Texture2D" uid="uid://b43qr345uutek" path="res://assets/input_prompts/keyboard_and_mouse/keyboard_f1.svg" id="11_t1rx8"]
+[ext_resource type="Texture2D" uid="uid://by4d67lmesnm2" path="res://assets/input_prompts/keyboard_and_mouse/keyboard_1.svg" id="14_arp2o"]
+[ext_resource type="Script" uid="uid://dwns0l0oyn31k" path="res://scenes/mouse_status.gd" id="14_fpun6"]
+[ext_resource type="Texture2D" uid="uid://dbefbldprvjas" path="res://assets/input_prompts/keyboard_and_mouse/keyboard_2.svg" id="15_ux5qa"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_rd3vj"]
+sky_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
+ground_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
+
+[sub_resource type="Sky" id="Sky_2q6dc"]
+sky_material = SubResource("ProceduralSkyMaterial_rd3vj")
+
+[sub_resource type="Environment" id="Environment_w7c3h"]
+background_mode = 2
+sky = SubResource("Sky_2q6dc")
+tonemap_mode = 2
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_w8frs"]
+albedo_color = Color(0.215902, 0.215902, 0.215902, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2q6dc"]
+albedo_color = Color(0.0687983, 0.0687983, 0.0687983, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8iemx"]
+bg_color = Color(0, 0, 0, 1)
+
+[node name="Level" type="Node3D"]
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.866025, -0.433013, 0.25, 0, 0.5, 0.866025, -0.5, 0.75, -0.433013, 0, 0, 0)
+shadow_enabled = true
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_w7c3h")
+
+[node name="CSGCombiner3D" type="CSGCombiner3D" parent="." groups=["ground"]]
+use_collision = true
+
+[node name="CSGBox3D" type="CSGBox3D" parent="CSGCombiner3D"]
+size = Vector3(32, 1, 32)
+material = SubResource("StandardMaterial3D_w8frs")
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9, 1, 0)
+size = Vector3(4, 1, 4)
+material = SubResource("StandardMaterial3D_2q6dc")
+
+[node name="DummyPlayer" parent="." instance=ExtResource("1_2q6dc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.887989, 0.5, -1.04753)
+
+[node name="DummyCreature" parent="." instance=ExtResource("2_w7c3h")]
+transform = Transform3D(-0.999096, 0, 0.0425033, 0, 1, 0, -0.0425033, 0, -0.999096, -0.788645, 0.5, -7.5914)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="UI" type="Control" parent="CanvasLayer"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/UI"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -303.0
+offset_bottom = 648.0
+grow_horizontal = 0
+
+[node name="Debug" type="MarginContainer" parent="CanvasLayer/UI"]
+layout_mode = 0
+offset_right = 215.0
+offset_bottom = 644.0
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 4
+theme_override_constants/margin_bottom = 4
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/UI/Debug"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/UI/Debug/VBoxContainer"]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/UI/Debug/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("11_t1rx8")
+expand_mode = 2
+
+[node name="Label" type="Label" parent="CanvasLayer/UI/Debug/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "Shortcut Keys"
+
+[node name="f1shortcutkeys" type="Panel" parent="CanvasLayer/UI"]
+visible = false
+layout_mode = 0
+offset_right = 215.0
+offset_bottom = 648.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_8iemx")
+script = ExtResource("3_8iemx")
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/UI/f1shortcutkeys"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 4
+theme_override_constants/margin_bottom = 4
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/UI/f1shortcutkeys/MarginContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/UI/f1shortcutkeys/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/UI/f1shortcutkeys/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("3_klq6b")
+expand_mode = 2
+
+[node name="Label" type="Label" parent="CanvasLayer/UI/f1shortcutkeys/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "Forward"
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="CanvasLayer/UI/f1shortcutkeys/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/UI/f1shortcutkeys/MarginContainer/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+texture = ExtResource("4_b121j")
+expand_mode = 2
+
+[node name="Label" type="Label" parent="CanvasLayer/UI/f1shortcutkeys/MarginContainer/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+text = "Backward"
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="CanvasLayer/UI/f1shortcutkeys/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/UI/f1shortcutkeys/MarginContainer/VBoxContainer/HBoxContainer3"]
+layout_mode = 2
+texture = ExtResource("5_8c41q")
+expand_mode = 2
+
+[node name="Label" type="Label" parent="CanvasLayer/UI/f1shortcutkeys/MarginContainer/VBoxContainer/HBoxContainer3"]
+layout_mode = 2
+text = "Right"
+
+[node name="HBoxContainer4" type="HBoxContainer" parent="CanvasLayer/UI/f1shortcutkeys/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/UI/f1shortcutkeys/MarginContainer/VBoxContainer/HBoxContainer4"]
+layout_mode = 2
+texture = ExtResource("6_olg7q")
+expand_mode = 2
+
+[node name="Label" type="Label" parent="CanvasLayer/UI/f1shortcutkeys/MarginContainer/VBoxContainer/HBoxContainer4"]
+layout_mode = 2
+text = "Left"
+
+[node name="HBoxContainer9" type="HBoxContainer" parent="CanvasLayer/UI/f1shortcutkeys/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/UI/f1shortcutkeys/MarginContainer/VBoxContainer/HBoxContainer9"]
+layout_mode = 2
+texture = ExtResource("9_64w2a")
+expand_mode = 2
+
+[node name="Label" type="Label" parent="CanvasLayer/UI/f1shortcutkeys/MarginContainer/VBoxContainer/HBoxContainer9"]
+layout_mode = 2
+text = "Jump"
+
+[node name="HBoxContainer5" type="HBoxContainer" parent="CanvasLayer/UI/f1shortcutkeys/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/UI/f1shortcutkeys/MarginContainer/VBoxContainer/HBoxContainer5"]
+layout_mode = 2
+texture = ExtResource("7_t1rx8")
+expand_mode = 2
+
+[node name="Label" type="Label" parent="CanvasLayer/UI/f1shortcutkeys/MarginContainer/VBoxContainer/HBoxContainer5"]
+layout_mode = 2
+text = "Sprint (N/A)"
+
+[node name="HBoxContainer6" type="HBoxContainer" parent="CanvasLayer/UI/f1shortcutkeys/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/UI/f1shortcutkeys/MarginContainer/VBoxContainer/HBoxContainer6"]
+layout_mode = 2
+texture = ExtResource("8_olg7q")
+expand_mode = 2
+
+[node name="Label" type="Label" parent="CanvasLayer/UI/f1shortcutkeys/MarginContainer/VBoxContainer/HBoxContainer6"]
+layout_mode = 2
+text = "Crouch  (N/A)"
+
+[node name="HBoxContainer7" type="HBoxContainer" parent="CanvasLayer/UI/f1shortcutkeys/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/UI/f1shortcutkeys/MarginContainer/VBoxContainer/HBoxContainer7"]
+layout_mode = 2
+texture = ExtResource("9_t1rx8")
+expand_mode = 2
+
+[node name="Label" type="Label" parent="CanvasLayer/UI/f1shortcutkeys/MarginContainer/VBoxContainer/HBoxContainer7"]
+layout_mode = 2
+text = "Action"
+
+[node name="HBoxContainer8" type="HBoxContainer" parent="CanvasLayer/UI/f1shortcutkeys/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/UI/f1shortcutkeys/MarginContainer/VBoxContainer/HBoxContainer8"]
+layout_mode = 2
+texture = ExtResource("10_8iemx")
+expand_mode = 2
+
+[node name="Label" type="Label" parent="CanvasLayer/UI/f1shortcutkeys/MarginContainer/VBoxContainer/HBoxContainer8"]
+layout_mode = 2
+text = "Toggle Mouse Capture"
+
+[node name="HBoxContainer10" type="HBoxContainer" parent="CanvasLayer/UI/f1shortcutkeys/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/UI/f1shortcutkeys/MarginContainer/VBoxContainer/HBoxContainer10"]
+layout_mode = 2
+texture = ExtResource("14_arp2o")
+expand_mode = 2
+
+[node name="Label" type="Label" parent="CanvasLayer/UI/f1shortcutkeys/MarginContainer/VBoxContainer/HBoxContainer10"]
+layout_mode = 2
+text = "Slot 1 key Capture"
+
+[node name="HBoxContainer11" type="HBoxContainer" parent="CanvasLayer/UI/f1shortcutkeys/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/UI/f1shortcutkeys/MarginContainer/VBoxContainer/HBoxContainer11"]
+layout_mode = 2
+texture = ExtResource("15_ux5qa")
+expand_mode = 2
+
+[node name="Label" type="Label" parent="CanvasLayer/UI/f1shortcutkeys/MarginContainer/VBoxContainer/HBoxContainer11"]
+layout_mode = 2
+text = "Slot 2 key Summon"
+
+[node name="MouseStatus" type="Label" parent="CanvasLayer/UI"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -20.0
+offset_right = 20.0
+offset_bottom = 23.0
+grow_horizontal = 2
+text = "Mouse Mode: VISIBLE"
+script = ExtResource("14_fpun6")

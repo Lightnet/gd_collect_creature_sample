@@ -1,0 +1,40 @@
+[gd_scene load_steps=6 format=3 uid="uid://d2y4gi1i5oq60"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_reh3n"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1lj1i"]
+albedo_color = Color(0.360784, 0.180392, 0.180392, 1)
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_hyvas"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_hyvas"]
+size = Vector3(0.1, 0.1, 0.1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_reh3n"]
+size = Vector3(0.2, 0.2, 0.2)
+
+[node name="DummyCreature" type="CharacterBody3D" groups=["creature"]]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+mesh = SubResource("CapsuleMesh_reh3n")
+surface_material_override/0 = SubResource("StandardMaterial3D_1lj1i")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("CapsuleShape3D_hyvas")
+
+[node name="Neck" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.7, 0)
+
+[node name="Camera3D" type="Camera3D" parent="Neck"]
+
+[node name="RightHand" type="Node3D" parent="Neck/Camera3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.28269, -0.408018, -0.784108)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Neck/Camera3D/RightHand"]
+mesh = SubResource("BoxMesh_hyvas")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, -0.742386)
+mesh = SubResource("BoxMesh_reh3n")

@@ -1,0 +1,30 @@
+[gd_scene load_steps=5 format=3 uid="uid://ddwbkgyqwtqbc"]
+
+[ext_resource type="Script" uid="uid://bxy1v1ap6yxl3" path="res://prefabs/dummy_player/network_player.gd" id="1_5xemc"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_reh3n"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_hyvas"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_reh3n"]
+size = Vector3(0.2, 0.2, 0.2)
+
+[node name="NetworkPlayer" type="CharacterBody3D"]
+script = ExtResource("1_5xemc")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+mesh = SubResource("CapsuleMesh_reh3n")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("CapsuleShape3D_hyvas")
+
+[node name="Neck" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.7, 0)
+
+[node name="Camera3D" type="Camera3D" parent="Neck"]
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, -0.742386)
+mesh = SubResource("BoxMesh_reh3n")

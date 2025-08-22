@@ -1,0 +1,39 @@
+[gd_scene load_steps=9 format=3 uid="uid://bbefw5gpv66h8"]
+
+[ext_resource type="Shader" uid="uid://bok007ewoacs1" path="res://shaders/capture_effect.tres" id="1_sg6xq"]
+[ext_resource type="Script" uid="uid://c0hqyw63jdr2l" path="res://prefabs/dummy_capture_effect/dummy_capture_effect.gd" id="1_y604o"]
+[ext_resource type="Texture2D" uid="uid://b2w3f4n3in6m3" path="res://addons/kenney_particle_pack/circle_05.png" id="2_men7h"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_men7h"]
+render_priority = 0
+shader = ExtResource("1_sg6xq")
+shader_parameter/Hit_texture = ExtResource("2_men7h")
+
+[sub_resource type="Curve" id="Curve_men7h"]
+_data = [Vector2(0, 0.185666), 0.0, 0.0, 0, 0, Vector2(0.696275, 0.889955), 0.0, 0.0, 0, 0, Vector2(1, 0.376411), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_y604o"]
+curve = SubResource("Curve_men7h")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_y604o"]
+gravity = Vector3(0, 0, 0)
+scale_min = 0.8
+scale_max = 1.5
+scale_curve = SubResource("CurveTexture_y604o")
+
+[sub_resource type="QuadMesh" id="QuadMesh_dn53l"]
+
+[node name="DummyCaptureEffect" type="Node3D"]
+script = ExtResource("1_y604o")
+
+[node name="GPUParticles3D" type="GPUParticles3D" parent="."]
+material_override = SubResource("ShaderMaterial_men7h")
+amount = 1
+process_material = SubResource("ParticleProcessMaterial_y604o")
+draw_pass_1 = SubResource("QuadMesh_dn53l")
+
+[node name="Timer" type="Timer" parent="."]
+autostart = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

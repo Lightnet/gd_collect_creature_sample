@@ -1,0 +1,20 @@
+[gd_scene load_steps=2 format=3 uid="uid://dwquifd41j0n4"]
+
+[ext_resource type="Script" uid="uid://cl704kmmo88x0" path="res://scenes/game_controller.gd" id="1_vq0e2"]
+
+[node name="GameController" type="Node"]
+script = ExtResource("1_vq0e2")
+
+[node name="World2D" type="Node2D" parent="."]
+
+[node name="World3D" type="Node3D" parent="."]
+
+[node name="HUD" type="CanvasLayer" parent="."]
+
+[node name="Control" type="Control" parent="HUD"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2

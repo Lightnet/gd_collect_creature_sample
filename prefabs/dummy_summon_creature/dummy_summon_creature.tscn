@@ -1,0 +1,28 @@
+[gd_scene load_steps=5 format=3 uid="uid://c7cvmqd5a3reg"]
+
+[ext_resource type="Script" uid="uid://dlu4vgaygsjr6" path="res://prefabs/dummy_summon_creature/dummy_summon_creature.gd" id="1_akngr"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_ol322"]
+radius = 0.1
+
+[sub_resource type="SphereMesh" id="SphereMesh_dhbew"]
+radius = 0.1
+height = 0.2
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0nidt"]
+albedo_color = Color(0, 0.661663, 0.335551, 1)
+
+[node name="DummySummonCreature" type="RigidBody3D"]
+contact_monitor = true
+max_contacts_reported = 1
+script = ExtResource("1_akngr")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("SphereShape3D_ol322")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("SphereMesh_dhbew")
+surface_material_override/0 = SubResource("StandardMaterial3D_0nidt")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_shape_entered" from="." to="." method="_on_body_shape_entered"]
