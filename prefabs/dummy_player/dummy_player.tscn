@@ -36,5 +36,5 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.28269, -0.408018, -0.784108
 mesh = SubResource("BoxMesh_hyvas")
 
 [node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, -0.742386)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, -0.518233)
 mesh = SubResource("BoxMesh_reh3n")
