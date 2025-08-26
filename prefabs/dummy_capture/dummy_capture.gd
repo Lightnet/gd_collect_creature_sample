@@ -8,6 +8,7 @@ const DUMMY_CAPTURE_EFFECT = preload("res://prefabs/dummy_capture_effect/dummy_c
 @export var speed: float = 20.0  # Speed of the projectile
 @export var lifetime: float = 5.0  # Time before projectile is destroyed (seconds)
 @export var damage: float = 10.0  # Damage dealt on hit
+@export var is_hit:bool = false
 
 # Internal variables
 var timer: float = 0.0  # Tracks lifetime
@@ -37,6 +38,7 @@ func init_fire() -> void:
 	apply_impulse(direction.normalized() * impulse_strength)
 
 func _on_body_entered(body: Node) -> void:
+	if is_hit: return
 	# Handle collision with other bodies
 	print("found creature!")
 	if body.is_in_group("creature"):
@@ -44,7 +46,9 @@ func _on_body_entered(body: Node) -> void:
 		var dummy = DUMMY_CAPTURE_EFFECT.instantiate()
 		get_tree().current_scene.add_child(dummy)
 		dummy.global_position = global_position
-		pass
+		is_hit = true
+		# need to handle store inventory here.
+		#pass
 		
 	#if body.is_in_group("enemies"):
 		# Example: Apply damage to an enemy (assumes enemy has a take_damage method)

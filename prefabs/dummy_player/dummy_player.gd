@@ -1,5 +1,13 @@
 extends CharacterBody3D
 
+# Signals
+signal toggle_inventory()
+
+@export var inventory_data:InventoryData
+@export var equip_inventory_data:InventoryDataEquip
+
+#var face_direction:Vector3 = Vector3.ZERO
+
 const DUMMY_CAPTURE = preload("res://prefabs/dummy_capture/dummy_capture.tscn")
 const DUMMY_SUMMON_CREATURE = preload("res://prefabs/dummy_summon_creature/dummy_summon_creature.tscn")
 
@@ -25,8 +33,13 @@ var look_dir: Vector2 # Input direction for look/aim
 var walk_vel: Vector3 # Walking velocity 
 var grav_vel: Vector3 # Gravity velocity 
 var jump_vel: Vector3 # Jumping velocity
-@export var slot_index:int = 0
+@export var slot_index:int = 1
 
+func _ready() -> void:
+	if not is_multiplayer_authority():return
+	camera.make_current()
+	Global.set_player(self)
+	pass
 
 func _unhandled_input(event: InputEvent) -> void:
 	if Input.is_action_just_pressed("jump"): jumping = true
@@ -37,6 +50,10 @@ func _unhandled_input(event: InputEvent) -> void:
 		else:
 			Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 			mouse_captured = false
+			
+	if event.is_action_pressed("inventory"):
+		toggle_inventory.emit()
+	# if mouse VISIBLE return do nothing.
 	if Input.mouse_mode == Input.MOUSE_MODE_VISIBLE:
 		return
 	if event.is_action_pressed("slot1"):
@@ -135,3 +152,18 @@ func throw_summon():
 	dummy.global_transform = right_hand.global_transform
 	dummy.init_fire()
 	pass
+
+# drop item forward position
+func get_drop_position() -> Vector3:
+	
+	# camera 
+	var direction  = -(camera.global_transform.basis.z * 1.5)
+	return camera.global_position + direction
+	
+	# player position and input face direction
+	#face_direction.x = (face_direction.x * 1.1 )
+	#face_direction.y = face_direction.y + 0.5
+	#face_direction.z = (face_direction.z * 1.1 )
+	#
+	#return global_position + face_direction
+	

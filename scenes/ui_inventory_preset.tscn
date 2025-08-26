@@ -1,0 +1,130 @@
+[gd_scene load_steps=9 format=3 uid="uid://bju48i3lag6kn"]
+
+[ext_resource type="Script" uid="uid://c5dw5vdomkma4" path="res://scripts/ui/ui_notify.gd" id="5_pm11q"]
+[ext_resource type="Script" uid="uid://c3y48i25asnju" path="res://scripts/ui/label_mouse_mode.gd" id="6_0a8s0"]
+[ext_resource type="Script" uid="uid://44sm2qmidxi8" path="res://scripts/ui/ui_chat_messages.gd" id="7_xvckq"]
+[ext_resource type="PackedScene" uid="uid://bualgvcqhxdhf" path="res://scenes/ui/ui_chat_message.tscn" id="8_h5kt1"]
+[ext_resource type="Script" uid="uid://ckj4268ou0eaa" path="res://inventory/inventory_interface.gd" id="9_wd43k"]
+[ext_resource type="PackedScene" uid="uid://bejcrr8de4ul8" path="res://inventory/inventory.tscn" id="10_o46od"]
+[ext_resource type="PackedScene" uid="uid://c5l1jiesfal5" path="res://inventory/slot.tscn" id="11_nj5yg"]
+[ext_resource type="PackedScene" uid="uid://dahrqhj48t1g6" path="res://inventory/hot_bar_inventory.tscn" id="12_xccgc"]
+
+[node name="GameController" type="Node"]
+
+[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
+spawn_path = NodePath("../World3D")
+
+[node name="World2D" type="Node2D" parent="."]
+
+[node name="World3D" type="Node3D" parent="."]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Notify_Messages" type="VBoxContainer" parent="CanvasLayer" groups=["notify"]]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -261.0
+offset_bottom = 648.0
+grow_horizontal = 0
+script = ExtResource("5_pm11q")
+
+[node name="Label_Mouse_Mode" type="Label" parent="CanvasLayer"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -20.0
+offset_right = 20.0
+offset_bottom = 23.0
+grow_horizontal = 2
+text = "Mouse Mode: Visible"
+script = ExtResource("6_0a8s0")
+
+[node name="UIChatMessages" type="PanelContainer" parent="CanvasLayer"]
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -193.0
+offset_right = 210.0
+grow_vertical = 0
+script = ExtResource("7_xvckq")
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/UIChatMessages"]
+layout_mode = 2
+theme_override_constants/margin_left = 2
+theme_override_constants/margin_top = 2
+theme_override_constants/margin_right = 2
+theme_override_constants/margin_bottom = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/UIChatMessages/MarginContainer"]
+layout_mode = 2
+
+[node name="ScrollContainer" type="ScrollContainer" parent="CanvasLayer/UIChatMessages/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/UIChatMessages/MarginContainer/VBoxContainer/ScrollContainer"]
+layout_mode = 2
+
+[node name="UIChatMessage" parent="CanvasLayer/UIChatMessages/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer" instance=ExtResource("8_h5kt1")]
+layout_mode = 2
+
+[node name="LineEdit" type="LineEdit" parent="CanvasLayer/UIChatMessages/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="InventoryInterface" type="Control" parent="CanvasLayer" groups=["inventoryinterface"]]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("9_wd43k")
+
+[node name="PlayerInventory" parent="CanvasLayer/InventoryInterface" instance=ExtResource("10_o46od")]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 10.0
+offset_right = 50.0
+offset_bottom = 50.0
+
+[node name="EquipInventory" parent="CanvasLayer/InventoryInterface" instance=ExtResource("10_o46od")]
+visible = false
+layout_mode = 0
+offset_left = 450.0
+offset_top = 10.0
+offset_right = 490.0
+offset_bottom = 50.0
+
+[node name="ExternalInventory" parent="CanvasLayer/InventoryInterface" instance=ExtResource("10_o46od")]
+visible = false
+layout_mode = 0
+offset_left = 645.0
+offset_top = 150.0
+offset_right = 685.0
+offset_bottom = 190.0
+
+[node name="GrabbedSlot" parent="CanvasLayer/InventoryInterface" instance=ExtResource("11_nj5yg")]
+visible = false
+modulate = Color(1, 1, 1, 0.529412)
+self_modulate = Color(1, 1, 1, 0)
+layout_mode = 0
+offset_right = 64.0
+offset_bottom = 64.0
+
+[node name="HotBarInventory" parent="CanvasLayer" groups=["hotbarinventory"] instance=ExtResource("12_xccgc")]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -210.0
+offset_top = -80.0
+offset_right = 210.0
+offset_bottom = 0.0
+grow_horizontal = 2
+grow_vertical = 0
+size_flags_vertical = 8
+
+[connection signal="text_submitted" from="CanvasLayer/UIChatMessages/MarginContainer/VBoxContainer/LineEdit" to="CanvasLayer/UIChatMessages" method="_on_line_edit_text_submitted"]
+[connection signal="gui_input" from="CanvasLayer/InventoryInterface" to="CanvasLayer/InventoryInterface" method="_on_gui_input"]

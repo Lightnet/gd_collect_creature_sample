@@ -1,11 +1,15 @@
-[gd_scene load_steps=23 format=3 uid="uid://2oyfbo3fn5gn"]
+[gd_scene load_steps=34 format=3 uid="uid://2oyfbo3fn5gn"]
 
 [ext_resource type="PackedScene" uid="uid://b4qanoqgtxx1p" path="res://prefabs/dummy_player/dummy_player.tscn" id="1_2q6dc"]
 [ext_resource type="PackedScene" uid="uid://d2y4gi1i5oq60" path="res://prefabs/dummy_creature/dummy_creature.tscn" id="2_w7c3h"]
+[ext_resource type="Script" uid="uid://br7shwa55u1ek" path="res://inventory/inventory_data.gd" id="2_wu01b"]
+[ext_resource type="Script" uid="uid://h1s642kf3ghg" path="res://inventory/slot_data.gd" id="3_3ies3"]
 [ext_resource type="Script" uid="uid://be7ym7bg3yy2i" path="res://scenes/f_1_shortcutkeys.gd" id="3_8iemx"]
 [ext_resource type="Texture2D" uid="uid://qu5vihmnobu2" path="res://assets/input_prompts/keyboard_and_mouse/keyboard_w.svg" id="3_klq6b"]
 [ext_resource type="Texture2D" uid="uid://f4w3ntck3ch" path="res://assets/input_prompts/keyboard_and_mouse/keyboard_s.svg" id="4_b121j"]
+[ext_resource type="Resource" uid="uid://cmmi21ih6kcoe" path="res://item/items/apple.tres" id="4_xy2fk"]
 [ext_resource type="Texture2D" uid="uid://do5hvy0jg0bma" path="res://assets/input_prompts/keyboard_and_mouse/keyboard_d.svg" id="5_8c41q"]
+[ext_resource type="Script" uid="uid://bk2fww1emg1l0" path="res://inventory/inventory_data_equip.gd" id="5_cmcjb"]
 [ext_resource type="Texture2D" uid="uid://by2rchpwyqkfw" path="res://assets/input_prompts/keyboard_and_mouse/keyboard_a.svg" id="6_olg7q"]
 [ext_resource type="Texture2D" uid="uid://bvhgljyyqglm4" path="res://assets/input_prompts/keyboard_and_mouse/keyboard_shift_icon.svg" id="7_t1rx8"]
 [ext_resource type="Texture2D" uid="uid://c8mpyhtfr2u3y" path="res://assets/input_prompts/keyboard_and_mouse/keyboard_c.svg" id="8_olg7q"]
@@ -16,6 +20,10 @@
 [ext_resource type="Texture2D" uid="uid://by4d67lmesnm2" path="res://assets/input_prompts/keyboard_and_mouse/keyboard_1.svg" id="14_arp2o"]
 [ext_resource type="Script" uid="uid://dwns0l0oyn31k" path="res://scenes/mouse_status.gd" id="14_fpun6"]
 [ext_resource type="Texture2D" uid="uid://dbefbldprvjas" path="res://assets/input_prompts/keyboard_and_mouse/keyboard_2.svg" id="15_ux5qa"]
+[ext_resource type="Script" uid="uid://ckj4268ou0eaa" path="res://inventory/inventory_interface.gd" id="17_8gofh"]
+[ext_resource type="PackedScene" uid="uid://bejcrr8de4ul8" path="res://inventory/inventory.tscn" id="18_h6wmr"]
+[ext_resource type="PackedScene" uid="uid://c5l1jiesfal5" path="res://inventory/slot.tscn" id="19_pqd0y"]
+[ext_resource type="PackedScene" uid="uid://dahrqhj48t1g6" path="res://inventory/hot_bar_inventory.tscn" id="20_5k0ak"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_rd3vj"]
 sky_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
@@ -34,6 +42,22 @@ albedo_color = Color(0.215902, 0.215902, 0.215902, 1)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2q6dc"]
 albedo_color = Color(0.0687983, 0.0687983, 0.0687983, 1)
+
+[sub_resource type="Resource" id="Resource_556r4"]
+script = ExtResource("3_3ies3")
+item_data = ExtResource("4_xy2fk")
+quantity = 100
+metadata/_custom_type_script = "uid://h1s642kf3ghg"
+
+[sub_resource type="Resource" id="Resource_7agi7"]
+script = ExtResource("2_wu01b")
+slot_datas = Array[ExtResource("3_3ies3")]([SubResource("Resource_556r4"), null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null])
+metadata/_custom_type_script = "uid://br7shwa55u1ek"
+
+[sub_resource type="Resource" id="Resource_kih21"]
+script = ExtResource("5_cmcjb")
+slot_datas = Array[ExtResource("3_3ies3")]([])
+metadata/_custom_type_script = "uid://bk2fww1emg1l0"
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8iemx"]
 bg_color = Color(0, 0, 0, 1)
@@ -61,6 +85,8 @@ material = SubResource("StandardMaterial3D_2q6dc")
 
 [node name="DummyPlayer" parent="." instance=ExtResource("1_2q6dc")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.887989, 0.5, -1.04753)
+inventory_data = SubResource("Resource_7agi7")
+equip_inventory_data = SubResource("Resource_kih21")
 
 [node name="DummyCreature" parent="." instance=ExtResource("2_w7c3h")]
 transform = Transform3D(-0.999096, 0, 0.0425033, 0, 1, 0, -0.0425033, 0, -0.999096, -0.788645, 0.5, -7.5914)
@@ -275,3 +301,60 @@ offset_bottom = 23.0
 grow_horizontal = 2
 text = "Mouse Mode: VISIBLE"
 script = ExtResource("14_fpun6")
+
+[node name="InventoryInterface" type="Control" parent="CanvasLayer" groups=["inventoryinterface"]]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("17_8gofh")
+
+[node name="PlayerInventory" parent="CanvasLayer/InventoryInterface" instance=ExtResource("18_h6wmr")]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 10.0
+offset_right = 50.0
+offset_bottom = 50.0
+
+[node name="EquipInventory" parent="CanvasLayer/InventoryInterface" instance=ExtResource("18_h6wmr")]
+visible = false
+layout_mode = 0
+offset_left = 450.0
+offset_top = 10.0
+offset_right = 490.0
+offset_bottom = 50.0
+
+[node name="ExternalInventory" parent="CanvasLayer/InventoryInterface" instance=ExtResource("18_h6wmr")]
+visible = false
+layout_mode = 0
+offset_left = 645.0
+offset_top = 150.0
+offset_right = 685.0
+offset_bottom = 190.0
+
+[node name="GrabbedSlot" parent="CanvasLayer/InventoryInterface" instance=ExtResource("19_pqd0y")]
+visible = false
+modulate = Color(1, 1, 1, 0.529412)
+self_modulate = Color(1, 1, 1, 0)
+layout_mode = 0
+offset_right = 64.0
+offset_bottom = 64.0
+
+[node name="HotBarInventory" parent="CanvasLayer" groups=["hotbarinventory"] instance=ExtResource("20_5k0ak")]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -210.0
+offset_top = -80.0
+offset_right = 210.0
+offset_bottom = 0.0
+grow_horizontal = 2
+grow_vertical = 0
+size_flags_vertical = 8
+
+[connection signal="gui_input" from="CanvasLayer/InventoryInterface" to="CanvasLayer/InventoryInterface" method="_on_gui_input"]

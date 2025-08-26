@@ -13,6 +13,7 @@ size = Vector3(0.1, 0.1, 0.1)
 size = Vector3(0.2, 0.2, 0.2)
 
 [node name="DummyPlayer" type="CharacterBody3D"]
+collision_layer = 2
 script = ExtResource("1_hyvas")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
