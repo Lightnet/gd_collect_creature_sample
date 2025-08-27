@@ -1,0 +1,35 @@
+[gd_resource type="Resource" script_class="CreatureData" load_steps=7 format=3 uid="uid://dqib51d73d1wl"]
+
+[ext_resource type="Script" uid="uid://d4kre5lmh0typ" path="res://creature/creature_data_info.gd" id="1_i6xap"]
+[ext_resource type="PackedScene" uid="uid://d2y4gi1i5oq60" path="res://prefabs/dummy_creature/dummy_creature.tscn" id="2_b7q5n"]
+[ext_resource type="Script" uid="uid://ddab7bq7ulaco" path="res://creature/creature_data.gd" id="3_jvush"]
+
+[sub_resource type="Resource" id="Resource_llw83"]
+script = ExtResource("1_i6xap")
+name = "Dummy Creature"
+health = 100.0
+health_max = 100.0
+attack = 100.0
+defense = 100.0
+is_own = false
+team_id = 0
+metadata/_custom_type_script = "uid://d4kre5lmh0typ"
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_i6xap"]
+load_path = "res://.godot/imported/#1 - Transparent Icons.png-cfb162c63d075773953986fd2d2afadb.s3tc.ctex"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_b7q5n"]
+atlas = SubResource("CompressedTexture2D_i6xap")
+region = Rect2(256, 96, 32, 32)
+
+[resource]
+script = ExtResource("3_jvush")
+is_empty = false
+is_summon = false
+pack_scene = ExtResource("2_b7q5n")
+creature_data_info = SubResource("Resource_llw83")
+name = "Dummy Creature"
+description = ""
+stackable = false
+texture = SubResource("AtlasTexture_b7q5n")
+metadata/_custom_type_script = "uid://ddab7bq7ulaco"

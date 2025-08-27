@@ -56,15 +56,18 @@ func _unhandled_input(event: InputEvent) -> void:
 	# if mouse VISIBLE return do nothing.
 	if Input.mouse_mode == Input.MOUSE_MODE_VISIBLE:
 		return
-	if event.is_action_pressed("slot1"):
-		slot_index = 1
-	if event.is_action_pressed("slot2"):
-		slot_index = 2
-	if event.is_action_pressed("throw") and slot_index == 1:
-		throw_capture()
-	if event.is_action_pressed("summon") and slot_index == 2:
-		throw_summon()
+		
+	input_key_slot()
+	#if event.is_action_pressed("slot1"):
+		#slot_index = 1
+	#if event.is_action_pressed("slot2"):
+		#slot_index = 2
+	#if event.is_action_pressed("throw") and slot_index == 1:
+		#throw_capture()
+	#if event.is_action_pressed("summon") and slot_index == 2:
+		#throw_summon()
 		#pass
+		
 	if event is InputEventMouseMotion:
 		#print("mo?")
 		look_dir = event.relative * 0.001
@@ -167,3 +170,60 @@ func get_drop_position() -> Vector3:
 	#
 	#return global_position + face_direction
 	
+func input_key_slot():
+	
+	if Input.is_action_just_pressed("slot1"):
+		print("INPUT 1")
+		check_slot(0)
+	if Input.is_action_just_pressed("slot2"):
+		check_slot(1)
+	if Input.is_action_just_pressed("slot3"):
+		check_slot(2)
+	if Input.is_action_just_pressed("slot4"):
+		check_slot(3)
+	if Input.is_action_just_pressed("slot5"):
+		check_slot(4)
+	if Input.is_action_just_pressed("slot6"):
+		check_slot(5)
+	if Input.is_action_just_pressed("slot7"):
+		check_slot(6)
+	if Input.is_action_just_pressed("slot8"):
+		check_slot(7)
+	if Input.is_action_just_pressed("slot9"):
+		check_slot(8)
+	if Input.is_action_just_pressed("slot0"):
+		check_slot(9)
+	#if event.is_action_pressed("slot1"):
+		#slot_index = 1
+	#if event.is_action_pressed("slot2"):
+		#slot_index = 2
+	#if event.is_action_pressed("throw") and slot_index == 1:
+		#throw_capture()
+	#if event.is_action_pressed("summon") and slot_index == 2:
+		#throw_summon()
+		#pass
+	pass
+
+func check_slot(_index:int):
+	print("#=====================================================")
+	print("check_slot _index:", _index)
+	
+	if inventory_data.slot_datas[_index]:
+		if inventory_data.slot_datas[_index].item_data:
+			print("item_data:", inventory_data.slot_datas[_index].item_data)
+	
+	if inventory_data.slot_datas[_index]:
+		if inventory_data.slot_datas[_index].item_data:
+			#if inventory_data.slot_datas[_index].item_data as ItemData:
+				#print("FOUND ItemData")
+				#pass
+			if inventory_data.slot_datas[_index].item_data is CreatureData:
+				var creature_data = inventory_data.slot_datas[_index].item_data as CreatureData
+				if creature_data.is_empty:
+					throw_capture()
+				if not creature_data.is_empty:
+					throw_summon()
+				print("FOUND CREATURE")
+				#pass
+		pass
+	pass

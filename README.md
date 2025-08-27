@@ -16,20 +16,22 @@
 - W,A,S,D = Movement
 - Mouse Motion = Camera
 - Space = Jump
-- 1 key = Capture Creature
-- 2 Key = Summon Creature
+- 0-9 key = hot bars
+
+  Note two icons for summon and capture for hotbar.
 
 # Features:
-- [ ] dev console
-- [ ] notify message
+- [ ] dev console (n/a)
+- [x] notify message
+- [ ] loading screen (n/a)
 
 ## Offline:
-- [] Inventory
+- [ ] Inventory
 	- [x] drop item
 	- [ ] chest storage
 	- [ ] storage
 	
-- [x] Hot bar
+- [x] Hot bars
 
 ## Online:
 - [ ] host

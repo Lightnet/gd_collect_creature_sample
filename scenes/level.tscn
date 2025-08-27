@@ -1,4 +1,4 @@
-[gd_scene load_steps=38 format=3 uid="uid://2oyfbo3fn5gn"]
+[gd_scene load_steps=42 format=3 uid="uid://2oyfbo3fn5gn"]
 
 [ext_resource type="PackedScene" uid="uid://b4qanoqgtxx1p" path="res://prefabs/dummy_player/dummy_player.tscn" id="1_2q6dc"]
 [ext_resource type="PackedScene" uid="uid://d2y4gi1i5oq60" path="res://prefabs/dummy_creature/dummy_creature.tscn" id="2_w7c3h"]
@@ -10,7 +10,9 @@
 [ext_resource type="Resource" uid="uid://cmmi21ih6kcoe" path="res://item/items/apple.tres" id="4_xy2fk"]
 [ext_resource type="Texture2D" uid="uid://do5hvy0jg0bma" path="res://assets/input_prompts/keyboard_and_mouse/keyboard_d.svg" id="5_8c41q"]
 [ext_resource type="Script" uid="uid://bk2fww1emg1l0" path="res://inventory/inventory_data_equip.gd" id="5_cmcjb"]
+[ext_resource type="Resource" uid="uid://cbtxy3d1o76bx" path="res://creature/creatures/item_block_empty_creature.tres" id="5_kih21"]
 [ext_resource type="Texture2D" uid="uid://by2rchpwyqkfw" path="res://assets/input_prompts/keyboard_and_mouse/keyboard_a.svg" id="6_olg7q"]
+[ext_resource type="Resource" uid="uid://dqib51d73d1wl" path="res://creature/creatures/item_dummy_creature.tres" id="6_w3o6u"]
 [ext_resource type="Texture2D" uid="uid://bvhgljyyqglm4" path="res://assets/input_prompts/keyboard_and_mouse/keyboard_shift_icon.svg" id="7_t1rx8"]
 [ext_resource type="Script" uid="uid://dj8acf3o4vyge" path="res://scenes/btn_notify_test.gd" id="8_556r4"]
 [ext_resource type="Texture2D" uid="uid://c8mpyhtfr2u3y" path="res://assets/input_prompts/keyboard_and_mouse/keyboard_c.svg" id="8_olg7q"]
@@ -53,9 +55,21 @@ item_data = ExtResource("4_xy2fk")
 quantity = 100
 metadata/_custom_type_script = "uid://h1s642kf3ghg"
 
+[sub_resource type="Resource" id="Resource_2e2fo"]
+script = ExtResource("3_3ies3")
+item_data = ExtResource("5_kih21")
+quantity = 100
+metadata/_custom_type_script = "uid://h1s642kf3ghg"
+
+[sub_resource type="Resource" id="Resource_gur6y"]
+script = ExtResource("3_3ies3")
+item_data = ExtResource("6_w3o6u")
+quantity = 1
+metadata/_custom_type_script = "uid://h1s642kf3ghg"
+
 [sub_resource type="Resource" id="Resource_7agi7"]
 script = ExtResource("2_wu01b")
-slot_datas = Array[ExtResource("3_3ies3")]([SubResource("Resource_556r4"), null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null])
+slot_datas = Array[ExtResource("3_3ies3")]([SubResource("Resource_556r4"), SubResource("Resource_2e2fo"), SubResource("Resource_gur6y"), null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null])
 metadata/_custom_type_script = "uid://br7shwa55u1ek"
 
 [sub_resource type="Resource" id="Resource_kih21"]

@@ -1,4 +1,6 @@
-[gd_scene load_steps=6 format=3 uid="uid://d2y4gi1i5oq60"]
+[gd_scene load_steps=7 format=3 uid="uid://d2y4gi1i5oq60"]
+
+[ext_resource type="Script" uid="uid://b4jsb8o004pud" path="res://prefabs/dummy_creature/dummy_creature.gd" id="1_kcqwi"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_reh3n"]
 
@@ -14,6 +16,7 @@ size = Vector3(0.1, 0.1, 0.1)
 size = Vector3(0.2, 0.2, 0.2)
 
 [node name="DummyCreature" type="CharacterBody3D" groups=["creature"]]
+script = ExtResource("1_kcqwi")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
